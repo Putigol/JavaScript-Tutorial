@@ -1,0 +1,16 @@
+console.log("Video 20");
+const a = 10;
+const b = 20;
+const c = a + b;
+console.log(c);
+console.log(b / a);
+let d = 30;
+const e = d++;
+const f = ++d;
+console.log(d);
+console.log(e);
+console.log(f);
+let g = 40;
+let h = "40";
+console.log(g == h);
+console.log(g === h);
