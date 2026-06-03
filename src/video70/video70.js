@@ -31,3 +31,27 @@ if (saveBtnElement) {
     window.location.href = "video70.html";
   });
 }
+
+const generateTodoTable = () => {
+  //Lấy dữ liệu từ localstorage
+  const todoListStr = localStorage.getItem("todo");
+  //Convert sang object
+  const todoList = JSON.parse(todoListStr);
+  console.log(todoList);
+
+  //Tiến hành insert data to html
+  //Dấu # tượng trưng cho id
+  const tbody = document.querySelector("#todoList tbody");
+  //Kiểm tra xem data có rỗng không
+  if (todoList && todoList.length) {
+    todoList.forEach((todo, index) => {
+      tbody.innerHTML += `<tr>
+          <td>${todo.id}</td>
+          <td>${todo.name}</td>
+          <td><button>Xoá</button></td>
+        </tr>`;
+    });
+  }
+};
+
+generateTodoTable();
