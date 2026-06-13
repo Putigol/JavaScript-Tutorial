@@ -15,7 +15,7 @@ const fetchLogs = async () => {
           <td>${blog.author}</td>
           <td>${blog.content}</td>
           <td>
-          <button class="delete-blog data-id="${blog.id}">Xoá</button>
+          <button class="delete-blog" data-id="${blog.id}">Xoá</button>
           </td>
         </tr>`;
     });
@@ -41,7 +41,8 @@ const addNewRowToEnd = (blog) => {
   // Thêm dòng vào cuối bảng
   tableBody.appendChild(newRow);
   //Gán sự kiện onClick cho row vừa tạo
-  const btn = document.querySelector(`.data-id=${blog.id}`);
+  //Hàm querySelector có tác dụng tìm kiếm theo data-id
+  const btn = document.querySelector(`[data-id="${blog.id}"]`);
   btn.addEventListener("click", async () => {
     const id = btn.getAttribute("data-id");
     //Thêm đường dẫn id để nói với backend blog cần xoá
@@ -91,9 +92,8 @@ const handleAddNewBlog = () => {
 //
 const handleDeleteBtns = () => {
   const btns = document.querySelectorAll(".delete-blog");
-  console.log("btns: ", btns);
   if (btns) {
-    btns.forEach((btn) => {
+    btns.forEach((btn, index) => {
       btn.addEventListener("click", async () => {
         const id = btn.getAttribute("data-id");
         //Thêm đường dẫn id để nói với backend blog cần xoá
