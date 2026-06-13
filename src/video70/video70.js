@@ -48,10 +48,50 @@ const generateTodoTable = () => {
       tbody.innerHTML += `<tr>
           <td>${todo.id}</td>
           <td>${todo.name}</td>
-          <td><button>Xoá</button></td>
+          <td>
+          <button 
+          data-id=${todo.id} 
+          class="deleteBtn"
+          >
+          Xoá
+          </button>
+          </td>
         </tr>`;
     });
   }
 };
 
 generateTodoTable();
+// Hàm querySelectorAll lấy tất cả các button có class deleteBtn
+const deleteBtns = document.querySelectorAll(".deleteBtn");
+if (deleteBtns) {
+  deleteBtns.forEach((btn, index) => {
+    console.log(btn, index);
+    btn.addEventListener("click", () => {
+      // Hàm getAttribute có tác dụng lấy thuộc tính của data-id
+      const id = btn.getAttribute("data-id");
+      //Dùng alert kiểm tra có lấy được id chưa
+      //Xoá
+      handleDeleteTodo(id);
+      // const todoListStr = localStorage.getItem("todo");
+      // const todoList = JSON.parse(todoListStr);
+      // const newTodoList = todoList.filter((todo) => todo.id !== id);
+      // localStorage.setItem("todo", JSON.stringify(newTodoList));
+      // generateTodoTable();
+    });
+  });
+}
+
+// Hàm handleDeleteTodo xoá todo item theo id
+const handleDeleteTodo = (id) => {
+  // Lấy danh sách todo trên localstorage
+  const todoListStr = localStorage.getItem("todo");
+  // Kiem tra xem todoListStr khong rong
+  if (todoListStr) {
+    const todoList = JSON.parse(todoListStr);
+    //Hàm filter lọc các item có id khác nhau
+    const newTodoList = todoList.filter((todo, index) => todo.id + "" !== id);
+    localStorage.setItem("todo", JSON.stringify(newTodoList));
+    window.location.reload();
+  }
+};
